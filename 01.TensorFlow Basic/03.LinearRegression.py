@@ -28,8 +28,16 @@ train_op = optimizer.minimize(cost)
 #세션을 생성하고 초기화
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
+    
     #최적화를 100번 수행
     for step in range(100):
         #sess.run을 통해 train_op와 cost그래프를 계산
         #이때, 가설 수식에 넣어야 할 실제값을 feed_dict를 통해 전달
+        _, cost_val = sess.run([train_op, cost], feed_dict = {X :x_data, Y : y_data})
+
+        print(step, cost_val, sess.run(W), sess.run(b))
         
+    #최적화가 완료된 모델에 테스트 값을 넣고 결과가 잘 나오는지 확인
+    print("\n===Test===")
+    print("X: 5, Y: ", sess.run(hypothesis, feed_dict = {X:5}))
+    print("X: 2.5, Y: ", sess.run(hypothesis, feed_dict = {X:2.5}))
