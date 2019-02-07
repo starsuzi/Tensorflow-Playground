@@ -1,6 +1,7 @@
 #털과 날개가 있는지 없는지에 따라, 포유류인지 조류인지 분류하는 신경망 모델 만들기
 #신경망 레이어를 여러개로 구성하여 딥러닝 구성!
 
+
 import tensorflow as tf
 import numpy as np
 
