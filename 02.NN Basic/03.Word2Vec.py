@@ -65,7 +65,7 @@ def random_batch(data, size):
 
     for i in random_index:
         random_inputs.append(data[i][0]) #target
-        random_labels.append(data[i][1]) #context
+        random_labels.append([data[i][1]]) #context
 
     return random_inputs, random_labels
 
@@ -127,8 +127,10 @@ with tf.Session() as sess:
     for step in range(1, training_epoch+1):
         batch_inputs, batch_labels = random_batch(skip_grams, batch_size)
         
-        print(batch_inputs)
-        print(batch_labels)
+        #print(batch_inputs)
+        #print(np.shape(batch_inputs))
+        #print(batch_labels)
+        #print(np.shape(batch_labels))
 
         _, loss_val = sess.run([train_op, loss],
                                 feed_dict = {inputs: batch_inputs, 
@@ -146,7 +148,11 @@ with tf.Session() as sess:
 #임베딩된 word2vec 결과 확인
 #결과는 해당 단어들이 얼마나 다른 단어와 인접해 있는지를 보여줌
 ####
-#for i, label in enumerate(word_list):
+for i, label in enumerate(word_list):
     #print(trained_embeddings[i])
-    #x,y = trained_embeddings[i]
+    x,y = trained_embeddings[i]
     #print(x,y)
+    plt.annotate(label, xy=(x, y), xytext=(5, 2),
+                textcoords='offset points', ha='right', va='bottom')
+
+plt.show()
